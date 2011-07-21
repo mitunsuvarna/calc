@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for SimpleTableDemo -->
+<jnlp
+  spec="1.0+"
+  codebase="http://sites.google.com/site/indy256"
+  href="calc.jnlp">
+  <information>
+    <title>title</title>
+    <vendor>vendor</vendor>
+    <offline-allowed />
+  </information>
+  <resources>
+    <j2se version="1.5+" />
+    <jar href="calc-1.0.jar" />
+  </resources>
+  <application-desc main-class="org.indy256.calc.Calc" />
+</jnlp>
