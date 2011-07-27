@@ -82,8 +82,8 @@ public class Calc extends JFrame {
 		++gbc.gridy;
 		pnl.add(expressionScrollPane, gbc);
 
-		gbc.gridx = 1;
-		gbc.gridy = 0;
+		gbc.gridx = 0;
+		++gbc.gridy;
 		pnl.add(resultLabel, gbc);
 
 		++gbc.gridy;
