@@ -1,5 +1,6 @@
 package org.indy256.calc;
 
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,7 +11,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +24,7 @@ public class Calc extends JFrame {
 	JLabel resultLabel;
 	JScrollPane expressionScrollPane;
 	JScrollPane resultScrollPane;
+	JTextArea helpTextArea;
 
 	JButton exit = new JButton("Exit");
 
@@ -40,16 +41,14 @@ public class Calc extends JFrame {
 
 	void createComponents() {
 		final JTextArea expressionTextArea = new JTextArea(5, 50);
-		expressionTextArea.setEditable(true);
-
 		expressionScrollPane = new JScrollPane(expressionTextArea);
-		expressionTextArea.setCaretPosition(0);
 
 		final JTextArea resultTextArea = new JTextArea(5, 50);
-		resultTextArea.setEditable(true);
-
 		resultScrollPane = new JScrollPane(resultTextArea);
-		resultTextArea.setCaretPosition(0);
+
+		final String info = "Operations: + - * / % ^ ! sin cos tan log2 log exp asin acos atan, Constants: PI E\nFunctions: factorize(n) isprime(n) nextprime(n) catalan(n) partitions(n) gcd(a,b) lcm(a,b) binomial(n,m)";
+		helpTextArea = new JTextArea(info, 2, 50);
+		helpTextArea.setEditable(false);
 
 		expressionLabel = new JLabel("Expression:");
 		resultLabel = new JLabel("Result:");
@@ -68,8 +67,6 @@ public class Calc extends JFrame {
 
 	JPanel createWorkingDayPanel() {
 		JPanel pnl = new JPanel(new GridBagLayout());
-		pnl.setBorder(BorderFactory
-				.createTitledBorder("Supported operations: + - * / ^ ! sin cos tan log2 log exp asin acos atan factorize(n) isprime(n) nextprime(n) catalan(n) partitions(n) gcd(a,b) lcm(a,b) binomial(n,m),  constants: PI E"));
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.WEST;
@@ -77,6 +74,9 @@ public class Calc extends JFrame {
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		pnl.add(helpTextArea, gbc);
+
+		++gbc.gridy;
 		pnl.add(expressionLabel, gbc);
 
 		++gbc.gridy;
@@ -115,7 +115,7 @@ public class Calc extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new Calc();
+		Frame frame = new Calc();		
 		frame.setVisible(true);
 	}
 }

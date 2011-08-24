@@ -10,7 +10,7 @@ public class ExpressionParser {
 		SIN("sin"), COS("cos"), TAN("tan"), LOG("log"), LOG2("log2"), EXP("exp"), ASIN("asin"), ACOS("acos"), ATAN(
 				"atan"), PARTITIONS("partitions"), FACTORIZE("factorize"), ISPRIME("isprime"), NEXTPRIME("nextprime"), CATALAN(
 				"catalan"), GCD("gcd"), LCM("lcm"), BINOMIAL("binomial"), PLUS("+"), MINUS("-"), UNARY_PLUS("+"), UNARY_MINUS(
-				"-"), MULTIPLY("*"), DIVIDE("/"), POW("^"), FACTORIAL("!"), OPEN_BRACKET("("), CLOSE_BRACKET(")"), COMMA(
+				"-"), MULTIPLY("*"), DIVIDE("/"), MOD("%"), POW("^"), FACTORIAL("!"), OPEN_BRACKET("("), CLOSE_BRACKET(")"), COMMA(
 				","), PI("PI"), E("E");
 		final String name;
 
@@ -39,7 +39,7 @@ public class ExpressionParser {
 			Operator.FACTORIZE, Operator.ISPRIME, Operator.NEXTPRIME, Operator.CATALAN, Operator.BINOMIAL,
 			Operator.GCD, Operator.LCM);
 	static EnumSet<Operator> operators = EnumSet.of(Operator.PLUS, Operator.MINUS, Operator.UNARY_PLUS,
-			Operator.UNARY_MINUS, Operator.MULTIPLY, Operator.DIVIDE, Operator.POW, Operator.FACTORIAL, Operator.COMMA);
+			Operator.UNARY_MINUS, Operator.MULTIPLY, Operator.DIVIDE, Operator.MOD, Operator.POW, Operator.FACTORIAL, Operator.COMMA);
 	static EnumSet<Operator> rightAssoc = EnumSet.of(Operator.POW, Operator.UNARY_PLUS, Operator.UNARY_MINUS);
 	static EnumSet<Operator> unary = EnumSet.of(Operator.UNARY_PLUS, Operator.UNARY_MINUS);
 	static EnumSet<Operator> constants = EnumSet.of(Operator.PI, Operator.E);
@@ -174,6 +174,10 @@ public class ExpressionParser {
 				assertTrue(Math.abs(r) > 1e-12, "Division by zero");
 				st.add(l / r);
 				break;
+			case MOD:
+				assertTrue(Math.abs(r) > 1e-12, "Division by zero");
+				st.add(l % r);
+				break;
 			case POW:
 				st.add(Math.pow(l, r));
 				break;
@@ -194,6 +198,7 @@ public class ExpressionParser {
 			return 1;
 		case MULTIPLY:
 		case DIVIDE:
+		case MOD:
 			return 2;
 		case POW:
 			return 3;
