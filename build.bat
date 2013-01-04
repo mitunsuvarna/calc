@@ -1,1 +1,1 @@
-mvn clean install
+gradle clean build
