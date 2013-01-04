@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- JNLP File for SimpleTableDemo -->
 <jnlp
   spec="1.0+"
-  codebase="http://sites.google.com/site/indy256"
+  codebase="https://sites.google.com/site/indy256"
   href="calc.jnlp">
   <information>
     <title>title</title>

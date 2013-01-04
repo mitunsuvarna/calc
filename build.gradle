@@ -1,0 +1,19 @@
+apply plugin:'java'
+apply plugin:'application'
+
+version = '1.0'
+
+mainClassName = "org.indy256.calc.Calc"
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+
+jar {
+    manifest {
+        attributes("Main-Class": "org.indy256.calc.Calc")
+    }
+}
+
+repositories {
+    mavenCentral()
+}

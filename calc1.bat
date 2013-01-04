@@ -1,0 +1,1 @@
+start javaw -jar calc-1.0.jar

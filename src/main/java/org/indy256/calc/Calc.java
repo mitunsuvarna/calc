@@ -1,27 +1,18 @@
 package org.indy256.calc;
 
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 public class Calc extends JFrame {
 
 	JLabel expressionLabel;
 	JLabel resultLabel;
+	JTextArea expressionTextArea;
 	JScrollPane expressionScrollPane;
 	JScrollPane resultScrollPane;
 	JTextArea helpTextArea;
@@ -29,18 +20,25 @@ public class Calc extends JFrame {
 	JButton exit = new JButton("Exit");
 
 	static String format(double res) {
-		if (Double.isNaN(res)) {
+		if (Double.isNaN(res))
 			return "Error";
-		}
 		DecimalFormat df = new DecimalFormat("0.0000000000000000000", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 		String s = df.format(res);
 		while (s.indexOf('.') != -1 && (s.charAt(s.length() - 1) == '0' || s.charAt(s.length() - 1) == '.'))
 			s = s.substring(0, s.length() - 1);
+		if (s.indexOf('.') == -1) {
+			while (s.length() % 3 != 0)
+				s = ' ' + s;
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < s.length() / 3; i++)
+				sb.append(s.substring(i * 3, i * 3 + 3)).append(' ');
+			s = sb.toString().trim();
+		}
 		return s;
 	}
 
 	void createComponents() {
-		final JTextArea expressionTextArea = new JTextArea(5, 50);
+		expressionTextArea = new JTextArea(5, 50);
 		expressionScrollPane = new JScrollPane(expressionTextArea);
 
 		final JTextArea resultTextArea = new JTextArea(5, 50);
@@ -56,7 +54,7 @@ public class Calc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				try {
-					double res = ExpressionParser.eval(expressionTextArea.getText());
+					double res = ExpressionParser.eval(expressionTextArea.getText().replaceAll(" ", ""));
 					resultTextArea.setText(format(res));
 				} catch (Exception ex) {
 					resultTextArea.setText(ex.getMessage());
@@ -112,10 +110,11 @@ public class Calc extends JFrame {
 		createLayout();
 		pack();
 		setLocationRelativeTo(null);
+		expressionTextArea.requestFocusInWindow();
 	}
 
 	public static void main(String[] args) {
-		Frame frame = new Calc();		
+		Frame frame = new Calc();
 		frame.setVisible(true);
 	}
 }
