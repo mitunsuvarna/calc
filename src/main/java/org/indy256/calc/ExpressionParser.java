@@ -235,7 +235,7 @@ public class ExpressionParser {
 			} else if (isOperator(curOp)) {
 				while (!op.isEmpty()
 						&& (priority(curOp) < priority(op.getLast()) || priority(curOp) == priority(op.getLast())
-								&& isLeftAssoc(op.getLast())))
+								&& isLeftAssoc(curOp)))
 					processOperator(st, op.removeLast());
 				op.add(curOp);
 				canUnary = curOp == Operator.PLUS || curOp == Operator.MINUS || curOp == Operator.MULTIPLY
@@ -248,7 +248,7 @@ public class ExpressionParser {
 				try {
 					st.add(Double.parseDouble(operand));
 				} catch (NumberFormatException e) {
-					assertTrue(false, "Incorect number format: " + operand);
+					assertTrue(false, "Incorrect number format: " + operand);
 				}
 				canUnary = false;
 			} else if (Character.isLetter(c)) {
