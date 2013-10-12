@@ -20,18 +20,22 @@ public class Calc extends JFrame {
 	JButton exit = new JButton("Exit");
 
 	static String format(double res) {
-		if (Double.isNaN(res))
+		if (Double.isNaN(res)) {
 			return "Error";
+		}
 		DecimalFormat df = new DecimalFormat("0.0000000000000000000", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 		String s = df.format(res);
-		while (s.indexOf('.') != -1 && (s.charAt(s.length() - 1) == '0' || s.charAt(s.length() - 1) == '.'))
+		while (s.indexOf('.') != -1 && (s.charAt(s.length() - 1) == '0' || s.charAt(s.length() - 1) == '.')) {
 			s = s.substring(0, s.length() - 1);
+		}
 		if (s.indexOf('.') == -1) {
-			while (s.length() % 3 != 0)
+			while (s.length() % 3 != 0) {
 				s = ' ' + s;
+			}
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < s.length() / 3; i++)
+			for (int i = 0; i < s.length() / 3; i++) {
 				sb.append(s.substring(i * 3, i * 3 + 3)).append(' ');
+			}
 			s = sb.toString().trim();
 		}
 		return s;

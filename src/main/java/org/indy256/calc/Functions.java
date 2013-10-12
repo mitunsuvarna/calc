@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.TreeMap;
 
 public final class Functions {
+
 	public static double partitions(double a) {
 		if (a > 10000) {
 			return Double.POSITIVE_INFINITY;
@@ -35,7 +36,7 @@ public final class Functions {
 		long n = (long) v;
 		TreeMap<Long, Integer> factors = new TreeMap<Long, Integer>();
 		n = Math.abs(n);
-		for (long d = 2; n > 1;) {
+		for (long d = 2; n > 1; ) {
 			int cnt = 0;
 			while (n % d == 0) {
 				cnt++;
